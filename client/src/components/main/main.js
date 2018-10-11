@@ -8,9 +8,16 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
+  Panel,
 } from 'react-bootstrap';
 
+import Tweet from '../tweet';
+import SortingPanel from '../sorting-panel';
+import FilterPanel from '../filter-panel';
+import Statistics from '../statistics';
 import { COUNT_TWEETS } from '../../constants';
+
+import './main.css';
 
 class Main extends Component {
   constructor(props) {
@@ -24,8 +31,20 @@ class Main extends Component {
   }
 
   getValidationState = () => {
-    const length = this.state.currentUsername.length;
+    const { currentUsername } = this.state;
+    const length = currentUsername.length;
     return length > 0 ? 'success' : 'error';
+  }
+
+  getMainButtonText = () => {
+    const { isGetTweetsButtonDisable } = this.state;
+    const { isLoaded } = this.props;
+    if (isGetTweetsButtonDisable) {
+      return 'Enter username';
+    } else if (!isLoaded) {
+      return 'Loading...';
+    }
+    return 'Get tweets';
   }
 
   changeUsernameHandler = (e) => {
@@ -41,11 +60,36 @@ class Main extends Component {
     getTweets(currentUsername, COUNT_TWEETS);
   }
 
+  onSortingClickHandler = () => {
+    alert('Sort!');
+  }
+
+  onFilterClickHandler = () => {
+    alert('Filter!');
+  }
+
+  renderTweets = () => {
+    const { tweets } = this.props;
+    return tweets.map((tweet) => {
+      return (
+        <Tweet
+          key={tweet.id}
+          tweet={tweet}
+        />
+      );
+    })
+  }
+
   render() {
     const {
       currentUsername,
       isGetTweetsButtonDisable,
     } = this.state;
+
+    const {
+      tweets,
+      isLoaded,
+    } = this.props;
     return (
       <div>
         <Grid>
@@ -67,15 +111,29 @@ class Main extends Component {
             <Col lg={8} md={8} sm={10} xs={12} lgOffset={2} mdOffset={2} smOffset={1}>
               <ButtonToolbar>
                 <Button
+                  className="main-button"
                   bsStyle="primary"
                   onClick={this.getTweetsClickHandler}
-                  disabled={isGetTweetsButtonDisable}
+                  disabled={isGetTweetsButtonDisable || !isLoaded}
                 >
-                  Get tweets
+                  {this.getMainButtonText()}
                 </Button>
               </ButtonToolbar>
             </Col>
           </Row>
+          {
+            tweets && tweets.length !== 0 && isLoaded &&
+              <Row>
+                <Col lg={8} md={8} sm={10} xs={12} lgOffset={2} mdOffset={2} smOffset={1}>
+                  <Panel id="tools-panel">
+                    <SortingPanel onSortingClickHandler={this.onSortingClickHandler} />
+                    <FilterPanel onFilterClickHandler={this.onFilterClickHandler} />
+                    <Statistics />
+                  </Panel>
+                </Col>
+              </Row>
+          }
+          {isLoaded && this.renderTweets()}
         </Grid>
       </div>
     );
