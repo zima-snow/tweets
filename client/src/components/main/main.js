@@ -12,7 +12,7 @@ import {
 } from 'react-bootstrap';
 
 import Tweet from '../tweet';
-import SortingPanel from '../sorting-panel';
+import SortingPanel from '../../containers/sorting-panel';
 import FilterPanel from '../filter-panel';
 import Statistics from '../statistics';
 import { COUNT_TWEETS } from '../../constants';
@@ -23,7 +23,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUsername: '',
+      currentUsername: 'Antiqar94',
       isGetTweetsButtonDisable: true,
       isListShow: false,
       isStatShow: false,
@@ -60,11 +60,7 @@ class Main extends Component {
     getTweets(currentUsername, COUNT_TWEETS);
   }
 
-  onSortingClickHandler = () => {
-    alert('Sort!');
-  }
-
-  onFilterClickHandler = () => {
+  onFilterClickHandler = (condition, operator, value) => {
     alert('Filter!');
   }
 
@@ -126,7 +122,7 @@ class Main extends Component {
               <Row>
                 <Col lg={8} md={8} sm={10} xs={12} lgOffset={2} mdOffset={2} smOffset={1}>
                   <Panel id="tools-panel">
-                    <SortingPanel onSortingClickHandler={this.onSortingClickHandler} />
+                    <SortingPanel />
                     <FilterPanel onFilterClickHandler={this.onFilterClickHandler} />
                     <Statistics />
                   </Panel>

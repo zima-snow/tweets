@@ -1,6 +1,9 @@
 export const sortingConditions = {
-  createdAt: 'Date of creation',
-  favoriteCount: 'Count of likes',
+  created_at: 'Date of creation',
+  favorite_count: 'Count of likes',
 };
 
-export const sortingOrders = ['Ascending', 'Descending'];
+export const sortingOrders = {
+  'asc': 'Ascending',
+  'desc': 'Descending',
+};

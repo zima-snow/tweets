@@ -1,9 +1,12 @@
 import { createReducer } from 'redux-create-reducer';
 
-import actionTypes from '../constants/action-types';
+import { sortTweets } from './utils';
+
+import actionTypes from '../../constants/action-types';
 
 const initialState = {
 	isLoaded: true,
+	cuttent: [],
 	tweets: [],
 };
 
@@ -13,5 +16,7 @@ export default createReducer(initialState, {
 	[actionTypes.RECEIVED_TWEETS]: (state, action) => ({
 		...state,
 		tweets: action.payload.data,
+		current: action.payload.data,
 	}),
+  [actionTypes.SORTED_TWEETS]: sortTweets,
 });
