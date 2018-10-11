@@ -23,7 +23,7 @@ class Tweet extends Component {
           >
             <Panel.Heading>
               <Panel.Title componentClass="h3">
-                {moment(tweet.created_at).format('MMMM Do YYYY')}
+                {moment(tweet.createdAt).format('MMMM Do YYYY')}
               </Panel.Title>
             </Panel.Heading>
             <Panel.Body>
@@ -36,7 +36,7 @@ class Tweet extends Component {
                     <Glyphicon glyph="heart-empty" />
                   </span>
                   <span>
-                    {tweet.favorite_count}
+                    {tweet.favoriteCount}
                   </span>
                 </Col>
                 <Col lg={4} md={4} sm={4} xs={4}>
@@ -44,7 +44,7 @@ class Tweet extends Component {
                     <Glyphicon glyph="share" />
                   </span>
                   <span>
-                    {tweet.retweet_count}
+                    {tweet.retweetCount}
                   </span>
                 </Col>
               </Row>

@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import {
   updateTweets,
 } from '../../actions/main';
+import {
+  tweetsSelector,
+} from '../../selectors/main';
 import MainComponent from '../../components/main';
 
 class Main extends Component {
@@ -29,7 +32,7 @@ class Main extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  tweets: state.main.tweets,
+  tweets: tweetsSelector(state),
   isLoaded: state.main.isLoaded,
 });
 

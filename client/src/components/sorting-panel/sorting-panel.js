@@ -8,38 +8,31 @@ import {
 } from 'react-bootstrap';
 
 import Select from '../select';
-import {
-  sortingConditions,
-  sortingOrders,
-} from '../../constants/sorting';
 
 import './sorting-panel.css';
 
 class SortingPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentCondition: sortingConditions.createdAt,
-      currentOrder: sortingOrders[0],
-      isSortDisable: true,
-    };
-  }
 
   changeSortingConditionHandler = (option) => {
-    this.setState({ currentCondition: option });
+    const { changeSortingCondition } = this.props;
+    changeSortingCondition(option);
   }
 
   changeSortingOrderHandler = (option) => {
-    this.setState({ currentOrder: option });
+    const { changeSortingOrder } = this.props;
+    changeSortingOrder(option);
   }
 
   sortButtonClickHandler = () => {
-    const { currentCondition, currentOrder } = this.state;
-    const { onSortingClickHandler } = this.props;
-    onSortingClickHandler(currentCondition, currentOrder);
+    const { sortTweets } = this.props;
+    sortTweets();
   }
 
   render() {
+    const {
+      conditions,
+      orders,
+    } = this.props;
     return (
       <Row>
         <Col lg={10} md={10} sm={10} xs={10} lgOffset={1} mdOffset={1} smOffset={1} xsOffset={1}>
@@ -62,7 +55,7 @@ class SortingPanel extends Component {
                       label="Choose condition"
                       changeSelectValueHandler={this.changeSortingConditionHandler}
                     >
-                      {sortingConditions}
+                      {conditions}
                     </Select>
                   </Col>
                   <Col lg={6} md={6} sm={6} xs={12}>
@@ -71,7 +64,7 @@ class SortingPanel extends Component {
                       label="Choose order"
                       changeSelectValueHandler={this.changeSortingOrderHandler}
                     >
-                      {sortingOrders}
+                      {orders}
                     </Select>
                   </Col>
                   <Col lg={8} md={8} sm={12} xs={12} lgOffset={2} mdOffset={2}>
