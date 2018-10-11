@@ -16,12 +16,12 @@ class Main extends Component {
   render() {
     const {
       tweets,
-      isLoading
+      isLoaded
     } = this.props;
     return (
       <MainComponent
         tweets={tweets}
-        isLoading={isLoading}
+        isLoaded={isLoaded}
         getTweets={this.getTweets}
       />
     )
@@ -30,7 +30,7 @@ class Main extends Component {
 
 const mapStateToProps = (state) => ({
   tweets: state.main.tweets,
-  isLoading: state.main.isLoading,
+  isLoaded: state.main.isLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
