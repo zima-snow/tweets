@@ -7,6 +7,7 @@ import {
 } from '../../actions/main';
 import {
   tweetsSelector,
+  currentTweetsLengthSelector,
 } from '../../selectors/main';
 import MainComponent from '../../components/main';
 
@@ -14,7 +15,7 @@ const Main = ({...rest}) => <MainComponent {...rest} />;
 
 const mapStateToProps = (state) => ({
   tweets: tweetsSelector(state),
-  currentTweets: state.main.current,
+  currentTweetsLength: currentTweetsLengthSelector(state),
   isLoaded: state.main.isLoaded,
 });
 

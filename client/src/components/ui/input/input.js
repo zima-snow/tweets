@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import {
   FormGroup,
   FormControl,
@@ -40,5 +41,12 @@ class Input extends Component {
     );
   }
 }
+
+Input.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.string,
+  changeValue: PropTypes.func,
+};
 
 export default Input;

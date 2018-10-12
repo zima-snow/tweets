@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import {
   Row,
   Col,
@@ -30,7 +31,7 @@ class Statistics extends Component {
     const { userMentions } = this.props;
     return Object.keys(userMentions).map((key) => {
       return (
-        <Row>
+        <Row key={key}>
           <Col lg={6} md={6} sm={6} xs={6}>
             <ControlLabel>{`@${key}`}</ControlLabel>
           </Col>
@@ -46,7 +47,7 @@ class Statistics extends Component {
     const { hashtags } = this.props;
     return Object.keys(hashtags).map((key) => {
       return (
-        <Row>
+        <Row key={key}>
           <Col lg={6} md={6} sm={6} xs={6}>
             <ControlLabel>{`#${key}`}</ControlLabel>
           </Col>
@@ -119,5 +120,12 @@ class Statistics extends Component {
     );
   }
 }
+
+Statistics.propTypes = {
+  allLikes: PropTypes.number,
+  averageLikes: PropTypes.number,
+  userMentions: PropTypes.shape({}),
+  hashtags: PropTypes.shape({}),
+};
 
 export default Statistics;

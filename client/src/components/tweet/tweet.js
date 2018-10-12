@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import {
   Row,
   Col,
@@ -55,5 +56,15 @@ class Tweet extends Component {
     );
   }
 }
+
+Tweet.propTypes = {
+  tweet: PropTypes.shape({
+    id: PropTypes.number,
+    createdAt: PropTypes.string,
+    text: PropTypes.string,
+    favoriteCount: PropTypes.number,
+    retweetCount: PropTypes.number,
+  }),
+};
 
 export default Tweet;

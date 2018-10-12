@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import CounterInput from 'react-bootstrap-counter';
 import {
   FormGroup,
@@ -27,13 +28,27 @@ class Counter extends Component {
         <ControlLabel>{label}</ControlLabel>
         <CounterInput
           value={value}
-          min={min || 0}
-          max={max || Infinity}
+          min={min}
+          max={max}
           onChange={this.changeValueHandler}
         />
       </FormGroup>
     );
   }
 }
+
+Counter.defaultProps = {
+  min: 0,
+  max: Infinity,
+};
+
+Counter.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.number,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  changeValue: PropTypes.func,
+};
 
 export default Counter;

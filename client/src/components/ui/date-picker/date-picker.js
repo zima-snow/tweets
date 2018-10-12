@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import DatePicker from 'react-datepicker';
 import {
   FormGroup,
@@ -35,5 +36,12 @@ class DatePickerComponent extends Component {
     );
   }
 }
+
+DatePickerComponent.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.shape({}),
+  changeValue: PropTypes.func,
+};
 
 export default DatePickerComponent;

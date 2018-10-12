@@ -20,6 +20,11 @@ export const tweetsSelector = createSelector(
   },
 );
 
+export const currentTweetsLengthSelector = createSelector(
+  main,
+  ({ tweets }) => tweets.length,
+);
+
 export const allLikesSelector = createSelector(
   tweetsSelector,
   (tweets) => tweets.reduce((current, tweet) => current + tweet.favoriteCount, 0),
