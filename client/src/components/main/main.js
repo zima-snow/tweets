@@ -13,7 +13,7 @@ import {
 
 import Tweet from '../tweet';
 import SortingPanel from '../../containers/sorting-panel';
-import FilterPanel from '../filter-panel';
+import FilterPanel from '../../containers/filter-panel';
 import Statistics from '../statistics';
 import { COUNT_TWEETS } from '../../constants';
 
@@ -123,7 +123,7 @@ class Main extends Component {
                 <Col lg={8} md={8} sm={10} xs={12} lgOffset={2} mdOffset={2} smOffset={1}>
                   <Panel id="tools-panel">
                     <SortingPanel />
-                    <FilterPanel onFilterClickHandler={this.onFilterClickHandler} />
+                    <FilterPanel />
                     <Statistics />
                   </Panel>
                 </Col>

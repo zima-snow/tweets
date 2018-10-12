@@ -1,6 +1,9 @@
 import { createReducer } from 'redux-create-reducer';
 
-import { sortTweets } from './utils';
+import {
+	sortTweets,
+	filterTweets,
+} from './utils';
 
 import actionTypes from '../../constants/action-types';
 
@@ -18,5 +21,6 @@ export default createReducer(initialState, {
 		tweets: action.payload.data,
 		current: action.payload.data,
 	}),
-  [actionTypes.SORTED_TWEETS]: sortTweets,
+	[actionTypes.SORTED_TWEETS]: sortTweets,
+	[actionTypes.FILTER_TWEETS]: filterTweets,
 });

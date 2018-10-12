@@ -11,60 +11,44 @@ import {
 } from 'react-bootstrap';
 
 import Select from '../select';
-import {
-  filterConditions,
-  filterOperators,
-} from '../../constants/filter';
 
 import './filter-panel.css';
 
 class FilterPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentCondition: filterConditions.userMentions,
-      currentOperator: filterOperators.equals,
-      currentValue: '',
-      isFilterDisable: true,
-    };
-  }
 
   getValidationState = () => {
-    const { currentValue } = this.state;
-    const length = currentValue.length;
+    const { value } = this.props;
+    const length = value.length;
     return length > 0 ? 'success' : 'error';
   }
 
   changeFilterConditionHandler = (option) => {
-    this.setState({ currentCondition: option });
+    const { changeFilterCondition } = this.props;
+    changeFilterCondition(option);
   }
 
   changeFilterOperatorHandler = (option) => {
-    this.setState({ currentOperator: option });
+    const { changeFilterOperator } = this.props;
+    changeFilterOperator(option);
   }
 
   changeFilterValueHandler = (e) => {
-    this.setState({
-      currentValue: e.target.value,
-      isFilterDisable: e.target.value.length === 0,
-    });
+    const { changeFilterValue } = this.props;
+    changeFilterValue(e.target.value);
   }
 
   filterButtonClickHandler = () => {
-    const {
-      currentCondition,
-      currentOperator,
-      currentValue,
-    } = this.state;
-    const { onFilterClickHandler } = this.props;
-    onFilterClickHandler(currentCondition, currentOperator, currentValue);
+    const { filterTweets } = this.props;
+    filterTweets();
   }
 
   render() {
     const {
-      currentValue,
-      isFilterDisable,
-    } = this.state;
+      conditions,
+      operators,
+      value,
+    } = this.props;
+
     return (
       <Row>
         <Col lg={10} md={10} sm={10} xs={10} lgOffset={1} mdOffset={1} smOffset={1} xsOffset={1}>
@@ -87,7 +71,7 @@ class FilterPanel extends Component {
                       label="Choose condition"
                       changeSelectValueHandler={this.changeFilterConditionHandler}
                     >
-                      {filterConditions}
+                      {conditions}
                     </Select>
                   </Col>
                   <Col lg={4} md={4} sm={4} xs={12}>
@@ -96,7 +80,7 @@ class FilterPanel extends Component {
                       label="Choose operator"
                       changeSelectValueHandler={this.changeFilterOperatorHandler}
                     >
-                      {filterOperators}
+                      {operators}
                     </Select>
                   </Col>
                   <Col lg={4} md={4} sm={4} xs={12}>
@@ -107,7 +91,7 @@ class FilterPanel extends Component {
                       <ControlLabel>Enter value</ControlLabel>
                       <FormControl
                         type="text"
-                        value={currentValue}
+                        value={value}
                         placeholder="Enter value"
                         onChange={this.changeFilterValueHandler}
                       />
@@ -119,7 +103,7 @@ class FilterPanel extends Component {
                         className="filter-button"
                         bsStyle="primary"
                         onClick={this.filterButtonClickHandler}
-                        disabled={isFilterDisable}
+                        disabled={value.length === 0}
                       >
                         Filter
                       </Button>

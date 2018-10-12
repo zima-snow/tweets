@@ -1,9 +1,9 @@
 export const filterConditions = {
-  userMentions: 'User mention',
+  user_mentions: 'User mention',
   hashtags: 'Hashtags',
   text: 'Tweet length',
-  createdAt: 'Date of creation',
-  favoriteCount: 'Count of likes',
+  created_at: 'Date of creation',
+  favorite_count: 'Count of likes',
 };
 
 export const filterOperators = {
