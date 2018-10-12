@@ -14,7 +14,7 @@ import {
 import Tweet from '../tweet';
 import SortingPanel from '../../containers/sorting-panel';
 import FilterPanel from '../../containers/filter-panel';
-import Statistics from '../statistics';
+import Statistics from '../../containers/statistics';
 import { COUNT_TWEETS } from '../../constants';
 
 import './main.css';
@@ -23,7 +23,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUsername: 'Antiqar94',
+      currentUsername: '',
       isGetTweetsButtonDisable: true,
       isListShow: false,
       isStatShow: false,
