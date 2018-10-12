@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import {
   Grid,
   Row,
@@ -84,7 +85,7 @@ class Main extends Component {
     } = this.state;
 
     const {
-      currentTweets,
+      currentTweetsLength,
       isLoaded,
     } = this.props;
     return (
@@ -119,7 +120,7 @@ class Main extends Component {
             </Col>
           </Row>
           {
-            currentTweets && currentTweets.length !== 0 && isLoaded &&
+            currentTweetsLength !== 0 && isLoaded &&
               <Row>
                 <Col lg={8} md={8} sm={10} xs={12} lgOffset={2} mdOffset={2} smOffset={1}>
                   <Panel id="tools-panel">
@@ -150,5 +151,19 @@ class Main extends Component {
     );
   }
 }
+
+Main.propTypes = {
+  tweets: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    createdAt: PropTypes.string,
+    text: PropTypes.string,
+    favoriteCount: PropTypes.number,
+    retweetCount: PropTypes.number,
+  })),
+  currentTweetsLength: PropTypes.number,
+  isLoaded: PropTypes.bool,
+  getTweets: PropTypes.func,
+  resetTweets: PropTypes.func,
+};
 
 export default Main;

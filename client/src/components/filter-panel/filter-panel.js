@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import {
   Row,
   Col,
@@ -154,5 +155,19 @@ class FilterPanel extends Component {
     );
   }
 }
+
+FilterPanel.propTypes = {
+  conditions: PropTypes.shape({}),
+  operators: PropTypes.shape({}),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.shape({}),
+  ]),
+  changeFilterCondition: PropTypes.func,
+  changeFilterOperator: PropTypes.func,
+  changeFilterValue: PropTypes.func,
+  filterTweets: PropTypes.func,
+};
 
 export default FilterPanel;

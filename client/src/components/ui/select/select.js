@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import {
   FormGroup,
   ControlLabel,
@@ -44,5 +45,11 @@ class Select extends Component {
     );
   }
 }
+
+Select.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.string,
+  changeSelectValueHandler: PropTypes.func,
+};
 
 export default Select;

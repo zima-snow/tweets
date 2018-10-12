@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import {
   Row,
   Col,
@@ -88,5 +89,13 @@ class SortingPanel extends Component {
     );
   }
 }
+
+SortingPanel.propTypes = {
+  conditions: PropTypes.shape({}),
+  orders: PropTypes.shape({}),
+  changeSortingCondition: PropTypes.func,
+  changeSortingOrder: PropTypes.func,
+  sortTweets: PropTypes.func,
+};
 
 export default SortingPanel;
