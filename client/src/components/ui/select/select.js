@@ -28,6 +28,7 @@ class Select extends Component {
     const {
       id,
       label,
+      value,
     } = this.props;
     return (
       <FormGroup
@@ -38,6 +39,7 @@ class Select extends Component {
           componentClass="select"
           placeholder={label}
           onChange={this.onChangeHandler}
+          value={value}
         >
           {this.getOptions()}
         </FormControl>
@@ -49,6 +51,10 @@ class Select extends Component {
 Select.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   changeSelectValueHandler: PropTypes.func,
 };
 

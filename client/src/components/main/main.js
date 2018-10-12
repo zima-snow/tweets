@@ -24,7 +24,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUsername: '',
+      currentUsername: 'EvgenComedian',
       isGetTweetsButtonDisable: true,
       isListShow: false,
       isStatShow: false,

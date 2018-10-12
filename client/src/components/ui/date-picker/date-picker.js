@@ -7,6 +7,7 @@ import {
 } from 'react-bootstrap';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import './date-picker.css';
 
 class DatePickerComponent extends Component {
 
@@ -27,10 +28,12 @@ class DatePickerComponent extends Component {
       >
         <ControlLabel>{label}</ControlLabel>
         <DatePicker
+          className="date-picker"
           todayButton={"Today"}
           dateFormat="MMMM Do YYYY"
           selected={value}
           onChange={this.changeValueHandler}
+          withPortal
         />
       </FormGroup>
     );

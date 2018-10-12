@@ -91,6 +91,8 @@ class FilterPanel extends Component {
     const {
       conditions,
       operators,
+      operator,
+      condition,
       value,
     } = this.props;
 
@@ -114,6 +116,7 @@ class FilterPanel extends Component {
                     <Select
                       id="formFilterCondition"
                       label="Choose condition"
+                      value={condition}
                       changeSelectValueHandler={this.changeFilterConditionHandler}
                     >
                       {conditions}
@@ -123,6 +126,7 @@ class FilterPanel extends Component {
                     <Select
                       id="formFilterOperator"
                       label="Choose operator"
+                      value={operator}
                       changeSelectValueHandler={this.changeFilterOperatorHandler}
                     >
                       {operators}
@@ -159,11 +163,14 @@ class FilterPanel extends Component {
 FilterPanel.propTypes = {
   conditions: PropTypes.shape({}),
   operators: PropTypes.shape({}),
+  condition: PropTypes.string,
+  operator: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.shape({}),
   ]),
+  typeOfCondition: PropTypes.string,
   changeFilterCondition: PropTypes.func,
   changeFilterOperator: PropTypes.func,
   changeFilterValue: PropTypes.func,

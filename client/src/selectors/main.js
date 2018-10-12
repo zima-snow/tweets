@@ -22,7 +22,7 @@ export const tweetsSelector = createSelector(
 
 export const currentTweetsLengthSelector = createSelector(
   main,
-  ({ tweets }) => tweets.length,
+  ({ current }) => current.length,
 );
 
 export const allLikesSelector = createSelector(
