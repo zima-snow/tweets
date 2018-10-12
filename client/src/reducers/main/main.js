@@ -9,7 +9,7 @@ import actionTypes from '../../constants/action-types';
 
 const initialState = {
 	isLoaded: true,
-	cuttent: [],
+	current: [],
 	tweets: [],
 };
 
@@ -23,4 +23,8 @@ export default createReducer(initialState, {
 	}),
 	[actionTypes.SORTED_TWEETS]: sortTweets,
 	[actionTypes.FILTER_TWEETS]: filterTweets,
+	[actionTypes.RESET_TWEETS]: state => ({
+		...state,
+		tweets: [...state.current],
+	}),
 });

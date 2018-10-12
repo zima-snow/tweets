@@ -8,13 +8,18 @@ import {
   updateTweetsByFilter,
 } from '../../actions/filter';
 import FilterPanelComponent from '../../components/filter-panel';
+import {
+  filterTypeOfConditionSelector,
+  filterOperatorsByConditionSelector,
+} from '../../selectors/filter';
 
 const FilterPanel = ({...rest}) => <FilterPanelComponent {...rest} />;
 
 const mapStateToProps = (state) => ({
   conditions: state.filter.conditions,
-  operators: state.filter.operators,
+  operators: filterOperatorsByConditionSelector(state),
   value: state.filter.currentValue,
+  typeOfCondition: filterTypeOfConditionSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -2,12 +2,10 @@ import { orderBy } from 'lodash-es';
 import moment from 'moment';
 
 import {
-  filterByEquals,
-  filterByNotEquals,
-  filterByGreaterThan,
-  filterByLessThan,
-  filterByIncludes,
-  filterByNotIncludes,
+  filterByConditionAsDate,
+  filterByConditionAsNumber,
+  filterByConditionAsString,
+  filterByConditionAsArray,
 } from '../../utils/main';
 
 export const sortTweets = (state, action) => {
@@ -32,32 +30,25 @@ export const filterTweets = (state, action) => {
     condition,
     operator,
     value,
+    typeOfCondition,
   } = action.payload;
+
   let filteredTweets;
-  
-  switch (operator) {
-    case 'equals': {
-      filteredTweets = filterByEquals(state.tweets, condition, value);
+  switch (typeOfCondition) {
+    case 'asDate': {
+      filteredTweets = filterByConditionAsDate(state.tweets, condition, operator, value);
       break;
     }
-    case 'notEquals': {
-      filteredTweets = filterByNotEquals(state.tweets, condition, value);
+    case 'asNumber': {
+      filteredTweets = filterByConditionAsNumber(state.tweets, condition, operator, value);
       break;
     }
-    case 'greaterThan': {
-      filteredTweets = filterByGreaterThan(state.tweets, condition, value);
+    case 'asString': {
+      filteredTweets = filterByConditionAsString(state.tweets, condition, operator, value);
       break;
     }
-    case 'lessThan': {
-      filteredTweets = filterByLessThan(state.tweets, condition, value);
-      break;
-    }
-    case 'includes': {
-      filteredTweets = filterByIncludes(state.tweets, condition, value);
-      break;
-    }
-    case 'notIncludes': {
-      filteredTweets = filterByNotIncludes(state.tweets, condition, value);
+    case 'asArray': {
+      filteredTweets = filterByConditionAsArray(state.tweets, condition, operator, value);
       break;
     }
     default: break;

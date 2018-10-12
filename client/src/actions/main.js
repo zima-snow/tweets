@@ -14,6 +14,10 @@ export const receiveTweets = (data) => ({
   payload: { data },
 });
 
+export const resetTweets = () => ({
+  type: actionTypes.RESET_TWEETS,
+});
+
 export const updateTweets = (username, count) => dispatch => {
     dispatch(startLoad());
     api.getTweetsByUsername(username, count)

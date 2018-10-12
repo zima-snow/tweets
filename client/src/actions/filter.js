@@ -3,6 +3,7 @@ import {
   currentFilterConditionSelector,
   currentFilterOperatorSelector,
   currentFilterValueSelector,
+  filterTypeOfConditionSelector,
 } from '../selectors/filter';
 
 export const changeFilterCurrentCondition = (condition) => ({
@@ -20,9 +21,9 @@ export const changeFilterCurrentValue = (value) => ({
   payload: value,
 });
 
-export const filterTweets = (condition, operator, value) => ({
+export const filterTweets = (condition, operator, value, typeOfCondition) => ({
   type: actionTypes.FILTER_TWEETS,
-  payload: { condition, operator, value },
+  payload: { condition, operator, value, typeOfCondition },
 });
 
 export const updateFilterCondition = (value) => dispatch => {
@@ -42,5 +43,6 @@ export const updateTweetsByFilter = () => (dispatch, getState) => {
   const condition = currentFilterConditionSelector(state);
   const operator = currentFilterOperatorSelector(state);
   const value = currentFilterValueSelector(state);
-  dispatch(filterTweets(condition, operator, value));
+  const typeOfCondition = filterTypeOfConditionSelector(state);
+  dispatch(filterTweets(condition, operator, value, typeOfCondition));
 };

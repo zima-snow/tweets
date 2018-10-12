@@ -7,7 +7,7 @@ import {
   Button,
 } from 'react-bootstrap';
 
-import Select from '../select';
+import Select from '../ui/select';
 
 import './sorting-panel.css';
 

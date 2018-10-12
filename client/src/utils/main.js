@@ -1,62 +1,94 @@
 import moment from 'moment';
 
-export const filterByEquals = (items, key, value) => {
-  if (items.length === 0) {
-    return items;
-  }
-  const date = moment(value, 'DD.MM.YYYY', true);
-  if (date.isValid()) {
-    return items.filter(r => moment(r[key]).isSame(moment(value)));
-  }
-  return items.filter(r => r[key] === value);
-}
-
-export const filterByNotEquals = (items, key, value) => {
-  if (items.length === 0) {
-    return items;
-  }
-  const date = moment(value, 'DD.MM.YYYY', true);
-  if (date.isValid()) {
-    return items.filter(r => !moment(r[key]).isSame(moment(value)));
-  } else {
-    return items.filter(r => r[key] !== value);
+export const filterByTextLength = (items, key, operator, value) => {
+  switch (operator) {
+    case 'equals': {
+      return items.filter(r => r[key].length === value);
+    }
+    case 'notEquals': {
+      return items.filter(r => r[key].length !== value);
+    }
+    case 'greaterThan': {
+      return items.filter(r => r[key].length > value);
+    }
+    case 'lessThan': {
+      return items.filter(r => r[key].length < value);
+    }
+    default: break;
   }
 }
 
-export const filterByGreaterThan = (items, key, value) => {
-  if (items.length === 0) {
-    return items;
-  }
-  const date = moment(value, 'DD.MM.YYYY', true);
-  if (date.isValid()) {
-    return items.filter(r => moment(r[key]).isAfter(moment(value)));
-  } else {
-    return items.filter(r => r[key] > value);
-  }
-}
-
-export const filterByLessThan = (items, key, value) => {
-  if (items.length === 0) {
-    return items;
-  }
-  const date = moment(value, 'DD.MM.YYYY', true);
-  if (date.isValid()) {
-    return items.filter(r => moment(r[key]).isBefore(moment(value)));
-  } else {
-    return items.filter(r => r[key] < value);
+export const filterByConditionAsDate = (items, key, operator, value) => {
+  switch (operator) {
+    case 'equals': {
+      return items.filter(r => moment(r[key]).isSame(moment(value), 'day'));
+    }
+    case 'notEquals': {
+      return items.filter(r => !moment(r[key]).isSame(moment(value), 'day'))
+    }
+    case 'greaterThan': {
+      return items.filter(r => moment(r[key]).isAfter(moment(value)));
+    }
+    case 'lessThan': {
+      return items.filter(r => moment(r[key]).isBefore(moment(value)));
+    }
+    default: break;
   }
 }
 
-export const filterByIncludes = (items, key, value) => {
-  if (items.length === 0) {
-    return items;
+export const filterByConditionAsNumber = (items, key, operator, value) => {
+  if (key === 'tweetLength') {
+    return filterByTextLength(items, 'text', operator, value);
   }
-  return items.filter(r => r[key].includes(value));
+
+  switch (operator) {
+    case 'equals': {
+      return items.filter(r => r[key] === value);
+    }
+    case 'notEquals': {
+      return items.filter(r => r[key] !== value);
+    }
+    case 'greaterThan': {
+      return items.filter(r => r[key] > value);
+    }
+    case 'lessThan': {
+      return items.filter(r => r[key] < value);
+    }
+    default: break;
+  }
 }
 
-export const filterByNotIncludes = (items, key, value) => {
-  if (items.length === 0) {
-    return items;
+export const filterByConditionAsString = (items, key, operator, value) => {
+  switch (operator) {
+    case 'equals': {
+      return items.filter(r => r[key] === value);
+    }
+    case 'notEquals': {
+      return items.filter(r => r[key] !== value);
+    }
+    case 'includes': {
+      return items.filter(r => r[key].includes(value));
+    }
+    case 'notIncludes': {
+      return items.filter(r => !r[key].includes(value));
+    }
+    default: break;
   }
-  return items.filter(r => !r[key].includes(value));
+}
+
+export const filterByConditionAsArray = (items, key, operator, value) => {
+  const values = value.split(' ');
+  switch (operator) {
+    case 'includes': {
+      return items.filter(r => r.entities[key].some(s => values.includes((s.text || s.screen_name))));
+    }
+    case 'notIncludes': {
+      return items.filter(r => !r.entities[key].some(s => values.includes((s.text || s.screen_name))));
+    }
+    default: break;
+  }
+}
+
+export const getKeyByArrayValue = (object, value) => {
+  return Object.keys(object).find(key => object[key].includes(value));
 }

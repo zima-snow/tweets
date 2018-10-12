@@ -3,23 +3,67 @@ import {
   Row,
   Col,
   Panel,
-  FormGroup,
-  FormControl,
-  ControlLabel,
   ButtonToolbar,
   Button,
 } from 'react-bootstrap';
 
-import Select from '../select';
+import Select from '../ui/select';
+import Input from '../ui/input';
+import DatePicker from '../ui/date-picker';
+import Counter from '../ui/counter';
 
 import './filter-panel.css';
 
 class FilterPanel extends Component {
 
-  getValidationState = () => {
-    const { value } = this.props;
-    const length = value.length;
-    return length > 0 ? 'success' : 'error';
+  getFieldForValue = () => {
+    const { value, typeOfCondition } = this.props;
+    switch (typeOfCondition) {
+      case 'asDate': {
+        return (
+          <DatePicker
+            id="formFilterValue"
+            label="Choose date"
+            value={value}
+            changeValue={this.changeFilterValueHandler}
+          />
+        );
+      }
+      case 'asNumber': {
+        return (
+          <Counter
+            id="formFilterValue"
+            label="Enter value"
+            value={value}
+            changeValue={this.changeFilterValueHandler}
+          />
+        );
+      }
+      default: {
+        return (
+          <Input
+            id="formFilterValue"
+            label="Enter value"
+            value={value}
+            changeValue={this.changeFilterValueHandler}
+          />
+        );
+      }
+    }
+  }
+
+  getNote = () => {
+    const { typeOfCondition } = this.props;
+    if (typeOfCondition === 'asArray') {
+      return (
+        <div className="note-container">
+          <div className="note">
+            NOTE: You can enter multiple values. Separate them with a space.
+          </div>
+        </div>
+      );
+    }
+    return '';
   }
 
   changeFilterConditionHandler = (option) => {
@@ -32,9 +76,9 @@ class FilterPanel extends Component {
     changeFilterOperator(option);
   }
 
-  changeFilterValueHandler = (e) => {
+  changeFilterValueHandler = (value) => {
     const { changeFilterValue } = this.props;
-    changeFilterValue(e.target.value);
+    changeFilterValue(value);
   }
 
   filterButtonClickHandler = () => {
@@ -84,18 +128,10 @@ class FilterPanel extends Component {
                     </Select>
                   </Col>
                   <Col lg={4} md={4} sm={4} xs={12}>
-                    <FormGroup
-                      controlId="formFilterValue"
-                      validationState={this.getValidationState()}
-                    >
-                      <ControlLabel>Enter value</ControlLabel>
-                      <FormControl
-                        type="text"
-                        value={value}
-                        placeholder="Enter value"
-                        onChange={this.changeFilterValueHandler}
-                      />
-                    </FormGroup>
+                    {this.getFieldForValue()}
+                  </Col>
+                  <Col lg={8} md={8} sm={12} xs={12} lgOffset={2} mdOffset={2}>
+                    {this.getNote()}
                   </Col>
                   <Col lg={8} md={8} sm={12} xs={12} lgOffset={2} mdOffset={2}>
                     <ButtonToolbar>
