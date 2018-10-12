@@ -6,6 +6,7 @@ import {
   filterByConditionAsNumber,
   filterByConditionAsString,
   filterByConditionAsArray,
+  filterByTextLength,
 } from '../../utils/main';
 
 export const sortTweets = (state, action) => {
@@ -25,34 +26,46 @@ export const sortTweets = (state, action) => {
   }
 }
 
-export const filterTweets = (state, action) => {
+export const getFilteredTweetsIfConditionIsKeyOfTweet = (items, payload) => {
   const {
     condition,
     operator,
     value,
     typeOfCondition,
-  } = action.payload;
-
-  let filteredTweets;
+  } = payload;
   switch (typeOfCondition) {
-    case 'asDate': {
-      filteredTweets = filterByConditionAsDate(state.tweets, condition, operator, value);
-      break;
-    }
-    case 'asNumber': {
-      filteredTweets = filterByConditionAsNumber(state.tweets, condition, operator, value);
-      break;
-    }
-    case 'asString': {
-      filteredTweets = filterByConditionAsString(state.tweets, condition, operator, value);
-      break;
-    }
-    case 'asArray': {
-      filteredTweets = filterByConditionAsArray(state.tweets, condition, operator, value);
-      break;
-    }
-    default: break;
+    case 'asDate': return filterByConditionAsDate(items, condition, operator, value);
+    case 'asNumber': return filterByConditionAsNumber(items, condition, operator, value);
+    case 'asString': return filterByConditionAsString(items, condition, operator, value);
+    case 'asArray': return filterByConditionAsArray(items, condition, operator, value);
+    default: return filterByConditionAsNumber(items, condition, operator, value);
   }
+}
+
+export const getFilteredTweetsIfConditionIsNotKeyOfTweet = (items, payload) => {
+  const {
+    condition,
+    operator,
+    value,
+  } = payload;
+  switch (condition) {
+    case 'tweetLength': return filterByTextLength(items, 'text', operator, value);
+    // if you have added new special key in filterConditions object ("constants/filter.js" file),
+    // also add new case here and new method in "utils/main.js" file if needed.
+    default: return filterByTextLength(items, 'text', operator, value);
+  }
+}
+
+export const filterTweets = (state, action) => {
+  const { condition } = action.payload;
+
+  if (state.tweets.length === 0) {
+    return { ...state };
+  }
+
+  const filteredTweets = state.tweets[0].hasOwnProperty(condition) || state.tweets[0].entities.hasOwnProperty(condition)
+    ? getFilteredTweetsIfConditionIsKeyOfTweet(state.tweets, action.payload)
+    : getFilteredTweetsIfConditionIsNotKeyOfTweet(state.tweets, action.payload);
 
   return {
     ...state,

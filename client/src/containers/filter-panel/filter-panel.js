@@ -18,6 +18,8 @@ const FilterPanel = ({...rest}) => <FilterPanelComponent {...rest} />;
 const mapStateToProps = (state) => ({
   conditions: state.filter.conditions,
   operators: filterOperatorsByConditionSelector(state),
+  condition: state.filter.currentCondition,
+  operator: state.filter.currentOperator,
   value: state.filter.currentValue,
   typeOfCondition: filterTypeOfConditionSelector(state),
 });

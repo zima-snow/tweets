@@ -1,5 +1,10 @@
 import moment from 'moment';
 
+/**
+ * If you have added new operator in filterOperators object ("/constants/filter.js" file),
+ * also add new case in every method where it is needed
+ */
+
 export const filterByTextLength = (items, key, operator, value) => {
   switch (operator) {
     case 'equals': {
@@ -37,10 +42,6 @@ export const filterByConditionAsDate = (items, key, operator, value) => {
 }
 
 export const filterByConditionAsNumber = (items, key, operator, value) => {
-  if (key === 'tweetLength') {
-    return filterByTextLength(items, 'text', operator, value);
-  }
-
   switch (operator) {
     case 'equals': {
       return items.filter(r => r[key] === value);

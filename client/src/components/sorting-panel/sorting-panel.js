@@ -33,6 +33,8 @@ class SortingPanel extends Component {
     const {
       conditions,
       orders,
+      condition,
+      order,
     } = this.props;
     return (
       <Row>
@@ -54,6 +56,7 @@ class SortingPanel extends Component {
                     <Select
                       id="formSortingCondition"
                       label="Choose condition"
+                      value={condition}
                       changeSelectValueHandler={this.changeSortingConditionHandler}
                     >
                       {conditions}
@@ -63,6 +66,7 @@ class SortingPanel extends Component {
                     <Select
                       id="formSortingOrder"
                       label="Choose order"
+                      value={order}
                       changeSelectValueHandler={this.changeSortingOrderHandler}
                     >
                       {orders}
@@ -93,6 +97,8 @@ class SortingPanel extends Component {
 SortingPanel.propTypes = {
   conditions: PropTypes.shape({}),
   orders: PropTypes.shape({}),
+  condition: PropTypes.condition,
+  order: PropTypes.order,
   changeSortingCondition: PropTypes.func,
   changeSortingOrder: PropTypes.func,
   sortTweets: PropTypes.func,

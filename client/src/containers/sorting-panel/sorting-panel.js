@@ -13,6 +13,8 @@ const SortingPanel = ({...rest}) => <SortingPanelComponent {...rest} />;
 const mapStateToProps = (state) => ({
   conditions: state.sorting.conditions,
   orders: state.sorting.orders,
+  condition: state.sorting.currentCondition,
+  order: state.sorting.currentOrder,
 });
 
 const mapDispatchToProps = (dispatch) => ({
