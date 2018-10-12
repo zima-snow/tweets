@@ -13,7 +13,7 @@ import {
 
 import Tweet from '../tweet';
 import SortingPanel from '../../containers/sorting-panel';
-import FilterPanel from '../filter-panel';
+import FilterPanel from '../../containers/filter-panel';
 import Statistics from '../statistics';
 import { COUNT_TWEETS } from '../../constants';
 
@@ -60,8 +60,9 @@ class Main extends Component {
     getTweets(currentUsername, COUNT_TWEETS);
   }
 
-  onFilterClickHandler = (condition, operator, value) => {
-    alert('Filter!');
+  resetTweetsClickHandler = () => {
+    const { resetTweets } = this.props;
+    resetTweets();
   }
 
   renderTweets = () => {
@@ -83,7 +84,7 @@ class Main extends Component {
     } = this.state;
 
     const {
-      tweets,
+      currentTweets,
       isLoaded,
     } = this.props;
     return (
@@ -118,13 +119,27 @@ class Main extends Component {
             </Col>
           </Row>
           {
-            tweets && tweets.length !== 0 && isLoaded &&
+            currentTweets && currentTweets.length !== 0 && isLoaded &&
               <Row>
                 <Col lg={8} md={8} sm={10} xs={12} lgOffset={2} mdOffset={2} smOffset={1}>
                   <Panel id="tools-panel">
                     <SortingPanel />
-                    <FilterPanel onFilterClickHandler={this.onFilterClickHandler} />
+                    <FilterPanel />
                     <Statistics />
+                    <Row>
+                      <Col lg={10} md={10} sm={10} xs={10} lgOffset={1} mdOffset={1} smOffset={1} xsOffset={1}>
+                        <ButtonToolbar>
+                          <Button
+                            className="reset-button"
+                            bsStyle="danger"
+                            bsSize="large"
+                            onClick={this.resetTweetsClickHandler}
+                          >
+                            Reset tweets
+                          </Button>
+                        </ButtonToolbar>
+                      </Col>
+                    </Row>
                   </Panel>
                 </Col>
               </Row>

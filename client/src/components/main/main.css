@@ -6,3 +6,8 @@
 .main-button {
   width: 100% !important;
 }
+
+.reset-button {
+  width: 100% !important;
+  margin-top: 3%;
+}

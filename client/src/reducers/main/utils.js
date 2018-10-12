@@ -1,6 +1,13 @@
 import { orderBy } from 'lodash-es';
 import moment from 'moment';
 
+import {
+  filterByConditionAsDate,
+  filterByConditionAsNumber,
+  filterByConditionAsString,
+  filterByConditionAsArray,
+} from '../../utils/main';
+
 export const sortTweets = (state, action) => {
   const {
     condition,
@@ -15,5 +22,40 @@ export const sortTweets = (state, action) => {
   return {
     ...state,
     tweets: sortedTweets,
+  }
+}
+
+export const filterTweets = (state, action) => {
+  const {
+    condition,
+    operator,
+    value,
+    typeOfCondition,
+  } = action.payload;
+
+  let filteredTweets;
+  switch (typeOfCondition) {
+    case 'asDate': {
+      filteredTweets = filterByConditionAsDate(state.tweets, condition, operator, value);
+      break;
+    }
+    case 'asNumber': {
+      filteredTweets = filterByConditionAsNumber(state.tweets, condition, operator, value);
+      break;
+    }
+    case 'asString': {
+      filteredTweets = filterByConditionAsString(state.tweets, condition, operator, value);
+      break;
+    }
+    case 'asArray': {
+      filteredTweets = filterByConditionAsArray(state.tweets, condition, operator, value);
+      break;
+    }
+    default: break;
+  }
+
+  return {
+    ...state,
+    tweets: filteredTweets,
   }
 }

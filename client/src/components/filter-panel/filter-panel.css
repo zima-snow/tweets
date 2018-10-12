@@ -5,4 +5,16 @@
 .filter-button {
   width: 100% !important;
 }
+
+.note-container {
+  margin: 2% 0;
+  padding: 2%;
+  border: 1px solid blue;
+  border-radius: 5px;
+}
+
+.note {
+  color: blue;
+  font-size: 1.2em;
+}
   
